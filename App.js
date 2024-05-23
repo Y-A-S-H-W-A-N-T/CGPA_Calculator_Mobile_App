@@ -14,21 +14,17 @@ export default function App() {
   const StackStyle = { 
     animation: 'slide_from_left',
     headerBackVisible: false,
-    headerTitle: ()=>{
-      return(
-        <Text>CGPA CALCULATOR</Text>
-    )},
     headerTitleAlign: 'center',
-    navigationBarColor: 'green',
+    navigationBarColor: 'black',
     headerStyle: {
-      backgroundColor: 'lime',
+      backgroundColor: '#E23E57',
     },
     statusBarColor: 'black',
   }
 
   return (
     <NavigationContainer>
-        <stack.Navigator>
+        <stack.Navigator screenOptions={{ headerTintColor: 'white', headerTitle: 'CGPA CALCULATOR' }}>
             <stack.Screen name='main' component={MainScreen} options={StackStyle}/>
         </stack.Navigator>
     </NavigationContainer>
@@ -49,31 +45,31 @@ function MainScreen(){
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle:{
-          bottom: 10,
-          backgroundColor: '#F5F5F5',
+          bottom: 20,
+          backgroundColor: 'white',
           borderRadius: 100,
           width: '80%',
           left: 40,
         },
         headerShown: false,
-        tabBarHideOnKeyboard: true
+        tabBarHideOnKeyboard: true,
       }}
       initialRouteName='home'
     >
       <Tab.Screen name="home" component={Home} options={{
-        tabBarIcon: ()=>{
+        tabBarIcon: ({ focused})=>{
           return(
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text>HOME</Text>
+              <Text style={{color: focused? '#E23E57' : 'black', fontWeight: 'bold'}}>CGPA</Text>
             </View>
           )
         }
       }}/>
       <Tab.Screen name="subjects" component={Subjects} options={{
-        tabBarIcon: ()=>{
+        tabBarIcon: ({ focused })=>{
           return(
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text>SUBJECTS</Text>
+              <Text style={{color: focused? '#E23E57' : 'black', fontWeight: 'bold'}}>SUBJECTS</Text>
             </View>
           )
         }
