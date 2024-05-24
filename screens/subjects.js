@@ -45,36 +45,212 @@ const Subjects = () => {
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'Data Science',
+      credit: '3'
+    },
+    {
+      name: 'Community Service Project',
+      credit: '1'
+    },
+    {
+      name: 'Computer Networks',
+      credit: '3'
+    },
+    {
+      name: 'Database Management System',
+      credit: '3'
+    },
+    {
+      name: 'Data Structures',
+      credit: '3'
+    },
+    {
+      name: 'Operating Systems',
+      credit: '3'
+    },
+    {
+      name: 'Object Oriented Programming using Java',
+      credit: '3'
+    },
+    {
+      name: 'Deep Learning',
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'IoT and Cloud Computing',
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'Block Chain Technology',
+      credit: '3'
+    },
+    {
+      name: 'Web and Mobile Application Development',
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'Database Management System',
+      credit: '3'
+    },
+    {
+      name: 'Data Structures Laboratory',
+      credit: '1'
+    },
+    {
+      name: 'Computer Networks Laboratory',
+      credit: '1'
+    },
+    {
+      name: 'Operating Systems Laboratory',
+      credit: '1'
+    },
+    {
+      name: 'Competitive Coding - I',
+      credit: '1'
+    },
+    {
+      name: 'Competitive Coding - II',
+      credit: '1'
+    },
+    {
+      name: 'Formal Languages and Automata Theory',
+      credit: '3'
+    },
+    {
+      name: 'Modern Physics Laboratory',
+      credit: '1'
+    },
+    {
+      name: 'Engineering Products Lab',
+      credit: '1'
+    },
+    {
+      name: 'Problem Solving using C Lab',
+      credit: '1'
+    },
+    {
+      name: 'IT workshop',
+      credit: '1'
+    },
+    {
+      name: 'Object Oriented Programming using C++ Lab',
+      credit: '1'
+    },
+    {
+      name: 'Programming Using PythonLab',
+      credit: '1'
+    },
+    {
+      name: 'Engineering Graphics',
+      credit: '3'
+    },
+    {
+      name: 'Introduction to Engineering',
+      credit: '3'
+    },
+    {
+      name: 'Basic Electronics & Digital Logic Design',
+      credit: '3'
+    },
+    {
+      name: 'Professional Communication - II',
+      credit: '2'
+    },
+    {
+      name: 'Professional Communication - I',
+      credit: '2'
+    },
+    {
+      name: 'Biology for Engineers',
+      credit: '2'
+    },
+    {
+      name: 'Universal Human Values',
+      credit: '3'
+    },
+    {
+      name: 'Project Management & Finance',
+      credit: '2'
+    },
+    {
+      name: 'Innovation & Entrepreneurship',
+      credit: '2'
+    },
+    {
+      name: 'Design thinking',
+      credit: '2'
+    },
+    {
+      name: 'Linear Algebra for Computing',
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'Calculus & Ordinary differential Equations',
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'Probability, Statistics and Queuing theory',
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'Discrete Mathematical Structures',
       credit: '4'
     },
     {
-      name: 'Data Visualization',
+      name: 'Semiconductor Physics',
+      credit: '3'
+    },
+    {
+      name: 'Environmental Science',
+      credit: '3'
+    },
+    {
+      name: 'Problem Solving using C',
+      credit: '3'
+    },
+    {
+      name: 'Object Oriented Programming using C++',
+      credit: '3'
+    },
+    {
+      name: 'Environmental Science and Sustainability',
+      credit: '3'
+    },
+    {
+      name: 'Artificial Intelligence Techniques',
       credit: '4'
+    },
+    {
+      name: 'Data Visualization ',
+      credit: '4'
+    },
+    {
+      name: 'Natural Language Processing ',
+      credit: '4'
+    },
+    {
+      name: 'Reinforcement Learning',
+      credit: '3'
+    },
+    {
+      name: 'Cognitive Computing',
+      credit: '3'
+    },
+    {
+      name: 'Machine Learning Techniques',
+      credit: '4'
+    },
+    {
+      name: 'Time series and Forecasting',
+      credit: '4'
+    },
+    {
+      name: 'Open Elective Course',
+      credit: '3'
+    },
+    {
+      name: 'Open Elective Course ( language )',
+      credit: '2'
     }
   ]
 
@@ -110,7 +286,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     marginTop: 0,
-    marginBottom: 0
+    marginBottom: 10
   },
   subjectText: {
     fontSize: 16,

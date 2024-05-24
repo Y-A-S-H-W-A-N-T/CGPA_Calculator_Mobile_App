@@ -23,6 +23,7 @@ const Home = () => {
   }
 
   const Calculate = ()=>{
+    if(subject.length===0) return alert("Add Subjects")
     let total = 0
     let total_credits = 0
     for(let i=0; i<subject.length;i++)
@@ -36,7 +37,7 @@ const Home = () => {
   const AddSubject = ()=>{
     if (subject_name === '' || subject_point === '' || subject_credit === '') 
       {
-        alert("enter all fields")
+        alert("Enter All Fields")
         return
       }
     setSubject((prev)=>{
