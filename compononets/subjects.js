@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Modal, Button, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const Subjects = () => {
+const Subjects = ({ showSubjects, setShowSubjects }) => {
 
   const subject = [
     {
@@ -255,29 +255,91 @@ const Subjects = () => {
   ]
 
   return (
-    <View>
-        <View style={styles.subjectContainer}>
-            <Text style={styles.subjectText}>Subject</Text>
-            <Text style={styles.detailsText}>Credits</Text>
-        </View>
-        <FlatList
-          style={styles.subject_box}
-          data={subject}
-          renderItem={({ item, index }) => (
-            <View style={styles.subjectContainer}>
-              {subject.length>0 && <Text>{index+1} </Text>}
-              <Text style={styles.subjectText}> {item.name}</Text>
-              <Text style={styles.detailsText}> {item.credit}</Text>
+    <View style={styles.container}>
+      <Modal
+        transparent={true}
+        animationType="slide"
+        visible={showSubjects}
+        onRequestClose={() => setShowSubjects(false)}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setShowSubjects(false)}
+            >
+              <Text style={styles.closeButtonText}>x</Text>
+            </TouchableOpacity>
+            <View style={styles.subjectContainerHeader}>
+              <Text style={styles.subjectTextHeader}>Subject</Text>
+              <Text style={styles.detailsTextHeader}>Credits</Text>
             </View>
-          )}
-        />
+            <FlatList
+              style={styles.subject_box}
+              data={subject}
+              renderItem={({ item, index }) => (
+                <View style={styles.subjectContainer}>
+                  {subject.length > 0 && <Text>{index + 1} </Text>}
+                  <Text style={styles.subjectText}> {item.name}</Text>
+                  <Text style={styles.detailsText}> {item.credit}</Text>
+                </View>
+              )}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContainer: {
+    width: '90%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    margin: 100
+  },
+  closeButton: {
+    alignSelf: 'flex-end',
+    marginBottom: 5
+  },
+  closeButtonText: {
+    fontSize: 20,
+    color: '#E23E57',
+    fontWeight: 'bold'
+  },
+  subjectContainerHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    marginBottom: 10,
+    width: '100%'
+  },
+  subjectTextHeader: {
+    fontSize: 18,
+    flex: 3,
+  },
+  detailsTextHeader: {
+    fontSize: 18,
+    flex: 1,
+    textAlign: 'center',
+  },
   subjectContainer: {
-    margin: 25,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -285,8 +347,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    marginTop: 0,
-    marginBottom: 10
   },
   subjectText: {
     fontSize: 16,
@@ -298,9 +358,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subject_box: {
-    marginBottom: 100
+    width: '100%',
   }
-});
+})
 
 
 export default Subjects

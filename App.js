@@ -1,80 +1,201 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from './screens/home'
-import axios from 'axios'
-import { View, Text } from 'react-native'
-import Subjects from './screens/subjects'
+import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import React from 'react'
+import { useState } from 'react'
+import Grades from './compononets/grades'
+import Credits from './compononets/credits'
+import Subject from './compononets/subjects'
 
-export default function App() {
+const App = () => {
 
-  const stack =  createNativeStackNavigator()
-  axios.defaults.baseURL=""
+  const [subject_name,setSubject_Name] = useState('')
+  const [subject_point,setSubject_Point] = useState('')
+  const [subject_credit,setSubject_Credit] = useState('')
 
-  const StackStyle = { 
-    animation: 'slide_from_left',
-    headerBackVisible: false,
-    headerTitleAlign: 'center',
-    navigationBarColor: 'black',
-    headerStyle: {
-      backgroundColor: '#E23E57',
-    },
-    statusBarColor: 'black',
+  const [showSubjects,setShowSubjects] = useState(false)
+
+  const [CGPA,setCGPA] = useState()
+
+  const [subject,setSubject] = useState([])
+
+  const Clear = ()=>{
+    setCGPA('')
+    setSubject_Credit('')
+    setSubject_Point('')
+    setSubject_Name('')
+    setSubject([])
+  }
+
+  const Calculate = ()=>{
+    if(subject.length===0) return alert("Add Subjects")
+    let total = 0
+    let total_credits = 0
+    for(let i=0; i<subject.length;i++)
+      {
+        total = total + (subject[i].credit*subject[i].points)
+        total_credits = total_credits + (subject[i].credit*1)
+      }
+    setCGPA(total/total_credits)
+  }
+
+  const AddSubject = ()=>{
+    if (subject_name === '' || subject_point === '' || subject_credit === '') 
+      {
+        alert("Enter All Fields")
+        return
+      }
+    setSubject((prev)=>{
+      return [
+        ...prev,
+        { name : subject_name, points : subject_point, credit: subject_credit },
+      ]
+    })
+    setSubject_Credit('')
+    setSubject_Point('')
+    setSubject_Name('')
   }
 
   return (
-    <NavigationContainer>
-        <stack.Navigator screenOptions={{ headerTintColor: 'white', headerTitle: 'CGPA CALCULATOR' }}>
-            <stack.Screen name='main' component={MainScreen} options={StackStyle}/>
-        </stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-
-function MainScreen(){
-
-  const Tab = createBottomTabNavigator();
-
-  const TabStyle = {
-
-  }
-
-  return(
-    <Tab.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        tabBarStyle:{
-          bottom: 20,
-          backgroundColor: 'white',
-          borderRadius: 100,
-          width: '80%',
-          left: 40,
-        },
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-      }}
-      initialRouteName='home'
-    >
-      <Tab.Screen name="home" component={Home} options={{
-        tabBarIcon: ({ focused})=>{
-          return(
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={{color: focused? '#E23E57' : 'black', fontWeight: 'bold'}}>CGPA</Text>
-            </View>
-          )
-        }
-      }}/>
-      <Tab.Screen name="subjects" component={Subjects} options={{
-        tabBarIcon: ({ focused })=>{
-          return(
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={{color: focused? '#E23E57' : 'black', fontWeight: 'bold'}}>SUBJECTS</Text>
-            </View>
-          )
-        }
-      }}/> 
-    </Tab.Navigator>
+    <View style={styles.container}>
+      <TextInput
+        placeholder="Subject name"
+        onChangeText={(val) => setSubject_Name(val)}
+        value={subject_name}
+        style={styles.input}
+      />
+      <Grades setSubject_Point={setSubject_Point} subject_point={subject_point}/>
+      <Credits setSubject_Credit={setSubject_Credit} subject_credit={subject_credit}/>
+      <TouchableOpacity onPress={AddSubject}>
+        <Text style={styles.add}>ADD</Text>
+      </TouchableOpacity>
+      <View style={styles.subjectContainer}>
+          <Text style={styles.subjectText}>Subject</Text>
+          <Text style={styles.detailsText}>Grade</Text>
+          <Text style={styles.detailsText}>Credits</Text>
+      </View>
+      <FlatList
+        keyExtractor={(item) => item.name}
+        data={subject}
+        renderItem={({ item, index }) => (
+          <View style={styles.subjectContainer}>
+            {subject.length>0 && <Text>{index+1} </Text>}
+            <Text style={styles.subjectText}> {item.name}</Text>
+            <Text style={styles.detailsText}>{item.points==='10'? 'S' : item.points==='9'? 'A' : item.points==='8'? 'B' : item.points==='7'? 'C' : 'D' }</Text>
+            <Text style={styles.detailsText}>{item.credit}</Text>
+          </View>
+        )}
+      />
+      <View style={styles.add_clear}>
+        <TouchableOpacity onPress={Clear}>
+          <Text style={styles.button}>CLEAR ALL</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={Calculate} style={styles.cgpa_button}>
+          <Text style={styles.button}>GET CGPA</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.cgpaText}>{CGPA}</Text>
+      <View style={styles.subjects}>
+          <Text onPress={()=>setShowSubjects(!showSubjects)} style={styles.sub_button}>?</Text>
+      </View>
+      {showSubjects && <Subject showSubjects={showSubjects} setShowSubjects={setShowSubjects}/>}
+    </View>
   )
-
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+    marginTop: 50
+  },
+  add: {
+    fontSize: 18,
+    color: '#fff',
+    backgroundColor: '#77D970',
+    padding: 10,
+    textAlign: 'center',
+    marginVertical: 10,
+    alignContent: 'center',
+    borderRadius: 100,
+    elevation: 5,
+    width: '20%',
+    alignSelf: 'center',
+  },
+  input: {
+    height: 40,
+    borderRadius: 8,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    backgroundColor: '#fff',
+    elevation: 5,
+    textAlign: 'center',
+    fontSize: 15,
+  },
+  add_clear: {
+    flexDirection: 'row',
+  },
+  cgpa_button: {
+    marginLeft: 'auto',
+    elevation: 5
+  },
+  button: {
+    fontSize: 18,
+    color: 'black',
+    backgroundColor: '#E23E57',
+    padding: 10,
+    textAlign: 'center',
+    marginVertical: 10,
+    alignContent: 'center',
+    borderRadius: 10,
+    elevation: 5,
+    fontWeight: 'bold'
+  },
+  subjectContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  subjectText: {
+    fontSize: 16,
+    flex: 3,
+  },
+  detailsText: {
+    fontSize: 16,
+    flex: 1,
+    textAlign: 'center',
+  },
+  cgpaText: {
+    color: '#E23E57',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 10,
+    backgroundColor: 'black',
+    width: '30%',
+    alignSelf: 'center',
+    padding: 5,
+    borderRadius: 100,
+    elevation: 5
+  },
+  subjects: {
+    alignSelf: 'flex-end'
+  },
+  sub_button: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'black',
+    color: 'white',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    lineHeight: 50,
+    fontSize: 24,
+    elevation: 3
+  }
+});
+
+export default App

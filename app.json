@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "gpa_calculator",
+    "name": "gpa",
     "slug": "gpa",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "orchid"
+      "backgroundColor": "#E23E57"
     },
     "ios": {
       "supportsTablet": true
@@ -17,7 +17,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#E23E57"
       }
     },
     "web": {
